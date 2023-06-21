@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Staff Information</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Custom styles for this template -->
+    <link href="css/navbar-fixed-top.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <style>
+      h1{
+         justify-content: center;
+         display: flex;
+      }
+      table{
+         justify-content: center;
+         display: flex;
+      }
+      table tr td{
+         border: dotted 1px;
+         padding: 10px; 
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Get the employeeNumber from the query parameter
+        var urlParams = new URLSearchParams(window.location.search);
+        var employeeNumber = urlParams.get("id");
+
+        // Make AJAX call to retrieve staff details by employeeNumber
+        $.ajax({
+          url: "https://kerbau.odaje.biz/getstaffbyid.php?id=" + employeeNumber,
+          method: "GET",
+          dataType: "json",
+          success: function (data) {
+            // Check if data is returned successfully
+            if (data && data.length > 1) {
+              var staff = JSON.parse(data[1]);
+              var employeeNumber = staff.employeeNumber;
+              var firstName = staff.firstName;
+              var lastName = staff.lastName;
+              var email = staff.email;
+              var extension = staff.extension;
+              var officeCode = staff.officeCode;
+              var reportsTo = staff.reportsTo;
+              var jobTitle = staff.jobTitle;
+
+              // Display the staff details on the page
+              $("#employeeNumber").text(employeeNumber);
+              $("#firstName").text(firstName);
+              $("#lastName").text(lastName);
+              $("#email").text(email);
+              $("#extension").text(extension);
+              $("#officeCode").text(officeCode);
+              $("#reportsTo").text(reportsTo);
+              $("#jobTitle").text(jobTitle);
+            } else {
+              console.log("No data found for the employee number.");
+            }
+          },
+          error: function () {
+            console.log("Error occurred while retrieving staff details.");
+          },
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Project name</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="index.html">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Profile</a></li>
+              <li><a href="#">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+    <div class="container">
+      <h1>Staff Information</h1>
+      <table>
+        <tr>
+          <td>Employee Number</td>
+          <td id="employeeNumber"></td>
+        </tr>
+        <tr>
+          <td>First Name</td>
+          <td id="firstName"></td>
+        </tr>
+        <tr>
+          <td>Last Name</td>
+          <td id="lastName"></td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td id="email"></td>
+        </tr>
+        <tr>
+          <td>Phone Extension</td>
+          <td id="extension"></td>
+        </tr>
+        <tr>
+          <td>Office Code</td>
+          <td id="officeCode"></td>
+        </tr>
+        <tr>
+          <td>Reports To</td>
+          <td id="reportsTo"></td>
+        </tr>
+        <tr>
+          <td>Job Title</td>
+          <td id="jobTitle"></td>
+        </tr>
+      </table>
+    </div>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">S63650 Muhd.Amier LabTest Front-End Programming &copy;2023</div>
+        </div>
+      </div>
+    </nav>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
